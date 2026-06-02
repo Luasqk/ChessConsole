@@ -1,13 +1,21 @@
-﻿using tabuleiro;
+﻿using System;
+using tabuleiro;
+using xadrez;
 
-namespace Main {
+namespace xadrez_Console {
     internal class Program {
         public static void Main(string[] args) {
 
             Tabuleiro tab = new Tabuleiro(8,8);
-            Tela tela = new Tela();
-            tela.imprimeTabuleiro(tab);
 
+            tab.ColocarPeca(new Torre(tab, Cor.Preta), new Posicao(0,0));
+            tab.ColocarPeca(new Torre(tab, Cor.Preta), new Posicao(1, 3));
+            tab.ColocarPeca(new Rei(tab, Cor.Preta), new Posicao(2, 4));
+
+
+            Tela.imprimeTabuleiro(tab);
+
+            Console.ReadLine();
 
         }
     }

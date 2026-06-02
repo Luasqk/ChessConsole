@@ -5,16 +5,16 @@ using System.Text;
 namespace tabuleiro {
     internal class Posicao {
 
-        public int Linha { get; set; }
-        public int Coluna { get; set; }
+        public int linha { get; set; }
+        public int coluna { get; set; }
 
         public Posicao(int Linha, int Coluna) {
-            this.Linha = Linha;
-            this.Coluna = Coluna;
+            this.linha = Linha;
+            this.coluna = Coluna;
         }
 
         public override string ToString() {
-            return "Posicao: " + Linha + ", " + Coluna;
+            return "Posicao: " + linha + ", " + coluna;
         }
     }
 }
