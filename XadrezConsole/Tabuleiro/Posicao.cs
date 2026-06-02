@@ -16,5 +16,7 @@ namespace tabuleiro {
         public override string ToString() {
             return "Posicao: " + linha + ", " + coluna;
         }
+
+
     }
 }
