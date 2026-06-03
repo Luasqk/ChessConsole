@@ -11,12 +11,15 @@ namespace xadrez {
         public bool xeque { get; private set; }
         private HashSet<Peca> pecas;
         private HashSet<Peca> capturadas;
+        public Peca vulneravelEnPassant { get; private set; }
 
         public PartidaDeXadrez() {
             tab = new Tabuleiro(8, 8);
             turno = 1;
             jogadorAtual = Cor.Branca;
             terminada = false;
+            xeque = false;
+            vulneravelEnPassant = null;
             pecas = new HashSet<Peca>();
             capturadas = new HashSet<Peca>();
             colocarPecas();
@@ -53,6 +56,19 @@ namespace xadrez {
                 tab.ColocarPeca(T, destinoT);
             }
 
+            //en passant
+            if (p is Peao) {
+                if (origem.coluna != destino.coluna && pecaCapturada == null) {
+                    Posicao posP;
+                    if (p.cor == Cor.Branca) {
+                        posP = new Posicao(destino.linha - 1, destino.coluna);
+                    }
+                    else {
+                        posP = new Posicao(destino.linha + 1, destino.coluna);
+                    }
+                }
+            }
+
             return pecaCapturada;
         }
 
@@ -76,11 +92,18 @@ namespace xadrez {
                 terminada = true;
             }
             else {
-
                 turno++;
                 mudaJogador();
+            }
 
+            Peca p = tab.peca(destino);
 
+            //en passant
+            if (p is Peao && (destino.linha == origem.linha + 2 || destino.linha == origem.linha - 2)) {
+                vulneravelEnPassant = p;
+            }
+            else {
+                vulneravelEnPassant = null;
             }
 
         }
@@ -222,9 +245,6 @@ namespace xadrez {
             }
             return true;
         }
-
-
-
 
         public void colocarNovaPeca(char coluna, int linha, Peca peca) {
             tab.ColocarPeca(peca, new PosicaoXadrez(coluna, linha).toPosicao());
