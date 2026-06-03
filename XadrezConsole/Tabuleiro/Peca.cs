@@ -20,6 +20,10 @@ namespace tabuleiro {
             QnteMovimento++;
         }
 
+        public void decrementaQnteMovimento() {
+            QnteMovimento--;
+        }
+
         public bool podeMover(Posicao pos) {
             Peca p = tab.peca(pos);
             return p == null || p.cor != cor;
