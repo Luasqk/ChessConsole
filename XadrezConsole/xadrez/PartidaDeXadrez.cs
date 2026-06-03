@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using tabuleiro;
 using System.Text;
 
@@ -24,21 +24,31 @@ namespace xadrez {
             tab.ColocarPeca(p, destino);
         }
 
+        public void validarPosicaoDeOrigem(Posicao pos) {
+            if(tab.peca(pos) == null) {
+                throw new TabuleiroException("Nao existe peca na posicao escolhida. ");
+            }
+            if(tab.peca(pos).cor != jogadorAtual) {
+                throw new TabuleiroException("Essa peca nao e da sua cor, voce nao pode move-la. ");
+            }
+            if (!tab.peca(pos).existeMovimentosPossiveis()) {
+                throw new TabuleiroException("Nao ha movimentos possiveis para a sua peca. ");
+            }
+        }
+
+        public void validarPosicaoDeDestino(Posicao origem, Posicao destino) {
+            if (!tab.peca(origem).movimentoPossivel(destino)) {
+                throw new TabuleiroException("Posição de destino inválida!");
+            }
+        }
+
         private void colocarPecas() {
 
             //brancas
             tab.ColocarPeca(new Torre(tab, Cor.Branca), new PosicaoXadrez('a', 1).toPosicao());
             tab.ColocarPeca(new Torre(tab, Cor.Branca), new PosicaoXadrez('h', 1).toPosicao());
             tab.ColocarPeca(new Rei(tab, Cor.Branca), new PosicaoXadrez('e', 1).toPosicao());
-            tab.ColocarPeca(new Bispo(tab, Cor.Branca), new PosicaoXadrez('c', 1).toPosicao());
-            tab.ColocarPeca(new Bispo(tab, Cor.Branca), new PosicaoXadrez('f', 1).toPosicao());
-            tab.ColocarPeca(new Cavalo(tab, Cor.Branca), new PosicaoXadrez('b', 1).toPosicao());
-            tab.ColocarPeca(new Cavalo(tab, Cor.Branca), new PosicaoXadrez('g', 1).toPosicao());
-            tab.ColocarPeca(new Dama(tab, Cor.Branca), new PosicaoXadrez('d', 1).toPosicao());
 
-            for (char c = 'a'; c <= 'h'; c++) {
-                tab.ColocarPeca(new Peao(tab, Cor.Branca), new PosicaoXadrez(c, 2).toPosicao());
-            }
             //pretas
             tab.ColocarPeca(new Torre(tab, Cor.Preta), new PosicaoXadrez('a', 8).toPosicao());
             tab.ColocarPeca(new Torre(tab, Cor.Preta), new PosicaoXadrez('h', 8).toPosicao());
