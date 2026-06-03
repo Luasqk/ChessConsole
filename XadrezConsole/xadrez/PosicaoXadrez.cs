@@ -6,9 +6,9 @@ namespace xadrez {
         public char coluna { get; set; }
         public int linha { get; set; }
 
-        public PosicaoXadrez(int linha, char coluna) {
-            this.linha = linha;
+        public PosicaoXadrez(char coluna, int linha) {
             this.coluna = coluna;
+            this.linha = linha;
         }
 
         public Posicao toPosicao() {
